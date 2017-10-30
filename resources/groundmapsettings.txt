@@ -1,0 +1,26 @@
+{
+ "AssetList" : [{
+ "Name" : "font_VolvoSans",
+ "Source" : "fonts/VolvoSans.ttf",
+ "Position" : [2,0,-5],
+ "Rotation" : [0.0,60.0,0.0]
+ },
+ {
+ "Name" : "font_VolvoSans_Bold",
+ "Source" : "fonts/VolvoSans_Bold.ttf",
+ "Position" : [1,0,-5],
+ "Rotation" : [0.0,0.0,0.0]
+ },
+ {
+ "Name" : "panelBG",
+ "Source" : "images/panelBG.png",
+ "Position" : [0,0,0],
+ "Rotation" : [0.0,0.0,0.0]
+ }],
+ {
+ "Name" : "groundmapsettings",
+ "Source" : "groundmapsettings.json",
+ "Position" : [0,0,0],
+"Rotation" : [0.0,0.0,0.0]
+}]
+}

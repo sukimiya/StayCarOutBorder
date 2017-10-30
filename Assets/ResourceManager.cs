@@ -72,7 +72,6 @@ public class ResourceManager
             if (mScene == null)
             {
                 string jsonTxt = mSceneAsset.www.text;
-                Debug.Log("jsonTxt=" + jsonTxt);
                 mScene = JsonMapper.ToObject<Scene>(jsonTxt);//mScene是个Asset对象列表，也就是Json文件需要一个AssetList列表对象，注意名字的统一，列表中Asset对象中的成员名称要和txt                //文件中的相关名称统一 不然JsonMapper无法找到
             }
             //load scene
