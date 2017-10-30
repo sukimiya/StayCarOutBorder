@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 87e61cb61df56eb4b980931f9ce6d4ba
+timeCreated: 1509082579
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: VolvoSans
+  fontNames:
+  - VolvoSans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 67a3d718e434b3b48bc7b7d5fcf9030d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

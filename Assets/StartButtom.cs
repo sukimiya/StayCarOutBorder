@@ -1,52 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityGameLoader;
 
 public class StartButtom : MonoBehaviour {
 
     public GameObject prefabToCreate;
     public int numberToCreate;
-
+    public List<DisplayLineation> lines = null;
+    public bool isDrawLines = false;
     // Use this for initialization
     void Start () {
-		
-	}
+        GEOLocation.center = new GPoint();
+        GEOLocation.center.lng = 117.25251548f;
+        GEOLocation.center.lat = 31.71685460f;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if(LoadManager.instance.progress>0)
-            Debug.Log(LoadManager.instance.progress);
+        
 	}
     private void OnGUI()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Start");
-            LoadManager.instance.RegisterEnumerator(EnumeratorToLoad());
-            LoadManager.instance.LoadRegistered(OnLoadComplete);
-            
-        }
-    }
-    private void OnLoadComplete()
-    {
-        Debug.Log("Load Complete!");
-        Debug.Log(numberToCreate);
-    }
-    private IEnumerator EnumeratorToLoad()
-    {
-        for (int i = 0; i < numberToCreate; i++)
-        {
-            Instantiate(prefabToCreate);
-            yield return null;
-        }
+            Lineation lin = PathLoader.LoadJsonFromFile();
+            lines = new List<DisplayLineation>(lin.points.Length-1);
+            GPoint last = null;
+            GameObject go = GameObject.Find("GameObject");
+            foreach (GPoint gp in lin.points)
+            {
+                if (last != null)
+                {
+                    
+                    lines.Add(new DisplayLineation(go,last, gp));
+                }
+                last = gp;
+            }
 
-        // Can call into other enumerators
-        yield return LoadOtherEnumerator();
-    }
-    private IEnumerator LoadOtherEnumerator()
-    {
-        // Can do whatever loading here too
-        yield return null;
+        }
     }
 }
