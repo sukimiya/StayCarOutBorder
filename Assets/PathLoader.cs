@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PathLoader: MonoBehaviour
 {
 
-    public static Lineation LoadJsonFromFile()
+    public static GPath LoadJsonFromFile()
     {
         BinaryFormatter bf = new BinaryFormatter();
 
@@ -34,7 +34,7 @@ public class PathLoader: MonoBehaviour
         Debug.Log(json);
         if (json.Length > 0)
         {
-            return JsonUtility.FromJson<Lineation>(json);
+            return JsonUtility.FromJson<GPath>(json);
         }
 
         return null;
