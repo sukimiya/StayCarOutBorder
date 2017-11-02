@@ -13,16 +13,16 @@ public class GPoint
 {
     public int id;
     public int sn;
-    public float lng;
-    public float lat;
-    public float high;
+    public double lng;
+    public double lat;
+    public double high;
     public GPoint()
     {
         id = -1;
         sn = -1;
-        lng = 0.000000f;
-        lat = 0.000000f;
-        high = 0.000000f;
+        lng = 0.000000d;
+        lat = 0.000000d;
+        high = 0.000000d;
     }
 
     public static implicit operator GPoint(GEOLocation v)

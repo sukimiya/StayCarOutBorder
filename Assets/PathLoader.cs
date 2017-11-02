@@ -39,4 +39,28 @@ public class PathLoader: MonoBehaviour
 
         return null;
     }
+    public static carData loadCarData()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+
+        if (!File.Exists(Application.dataPath + "/Resources/car.json"))
+        {
+            return null;
+        }
+
+        StreamReader sr = new StreamReader(Application.dataPath + "/Resources/car.json");
+
+        if (sr == null)
+        {
+            return null;
+        }
+        string json = sr.ReadToEnd();
+        Debug.Log(json);
+        if (json.Length > 0)
+        {
+            return JsonUtility.FromJson<carData>(json);
+        }
+
+        return null;
+    }
 }

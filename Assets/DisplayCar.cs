@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DisplayLineation {
+public class DisplayCar {
+
     public LineRenderer line;
     public EdgeCollider2D edge;
     protected Vector2[] e2p = null;
@@ -12,31 +13,37 @@ public class DisplayLineation {
     public string type;
 
     public GameObject displayObject;
-
+    public carData cdata;
     public static int numLine = 0;
 
     public static Shader shader = Shader.Find("Unlit/Color");
-    public DisplayLineation(GameObject gameObject, GPoint[] _points, string _type)
-    {
 
+
+    public DisplayCar(GameObject gameObject, carData cardata,GPoint[] _points, string _type="S")
+    {
+        _points = cardata.body;
+        cdata = cardata;
+        Vector3 v1 = GEOLocation.TranslateGPoint2Vector3(cdata.antennaB);
         displayObject = new GameObject("DisplayLineation_" + numLine.ToString());
+        displayObject.SetActive(true);
+        Debug.Log(displayObject.name + ":" + displayObject.transform.position.x + "," + displayObject.transform.position.y);
         numLine++;
         line = displayObject.AddComponent<LineRenderer>();
         line.useWorldSpace = false;
+        line.transform.position = v1;
         type = _type;
-        __init(_points);
+        __init(cardata.body);
         setActivity();
     }
-
     protected void __init(GPoint[] _points)
     {
         points = _points;
         edge = displayObject.AddComponent<EdgeCollider2D>();
         e2p = new Vector2[points.Length];
         int i = 0;
-        foreach(GPoint p in points)
+        foreach (GPoint p in points)
         {
-            Vector3 v3 = GEOLocation.TranslateGPoint(_points[0], p);
+            Vector3 v3 = GEOLocation.TranslateGPoint(cdata.antennaB, p);
             e2p[i] = new Vector2(v3.x, v3.y);
             i++;
         }
@@ -45,7 +52,7 @@ public class DisplayLineation {
     public void setActivity()
     {
         line.material = new Material(shader);
-        if(type == Lineation.TYPE_SOLID)
+        if (type == Lineation.TYPE_SOLID)
             line.material.color = Color.white;
         if (type == Lineation.TYPE_DASH)
             line.material.color = new Color(0, 0, 0, 0.5f);
@@ -57,22 +64,9 @@ public class DisplayLineation {
         int i = 0;
         foreach (GPoint p in points)
         {
-            line.SetPosition(i, GEOLocation.TranslateGPoint(points[0], p));
+            line.SetPosition(i, GEOLocation.TranslateGPoint(cdata.antennaB, p));
             i++;
         }
-        Vector3 v1 = GEOLocation.TranslateGPoint2Vector3(points[0]);
-
-        //displayObject.transform.position = v1;
-        line.transform.position = v1;
-        Debug.Log(displayObject.name + ":" + v1.x + "," + v1.y);
-    }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	public void Update () {
-
+        line.loop = true;
     }
 }

@@ -8,6 +8,9 @@ public class StartButtom : MonoBehaviour {
     public int numberToCreate;
     public List<DisplayLineation> lines = null;
     public bool isDrawLines = false;
+    public DisplayCar car = null;
+    public Camera ca = null;
+    Vector3 v1, v2, v3;
     // Use this for initialization
     void Start () {
         new GEOLocation(117.25251548f, 31.71685460f);
@@ -16,13 +19,14 @@ public class StartButtom : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
-        if (prefabToCreate != null)
+        if (car != null)
         {
-            //Camera ca = GameObject.Find("Main Camera").GetComponent<Camera>();
             //ca.transform.SetPositionAndRotation(lines[0].displayObject.transform.position, ca.transform.rotation);
-            foreach (DisplayLineation gp in lines)
+            v1 = car.line.transform.position;
+            if((ca.transform.position.x!=v1.x&& ca.transform.position.y != v1.y))
             {
-                gp.Update();
+                v3 = new Vector3(v1.x, v1.y, ca.transform.position.z);
+                iTween.MoveTo(ca.gameObject, v3, 0.2f);
             }
         }
 	}
@@ -34,20 +38,18 @@ public class StartButtom : MonoBehaviour {
             lines = new List<DisplayLineation>(path.lines.Length);
             Lineation last = null;
             GameObject go = GameObject.Find("lineTemplete");
-            Camera ca = GameObject.Find("Main Camera").GetComponent<Camera>();
+            ca = GameObject.Find("Main Camera").GetComponent<Camera>();
             foreach (Lineation gp in path.lines)
             {
                 lines.Add(new DisplayLineation(go, gp.points,gp.type));
                 last = gp;
             }
-            prefabToCreate = lines[0].displayObject;
-            //ca.ScreenToViewportPoint(GEOLocation.TranslateGPoint2Vector3(lines[0].points[0]));
-            //ca.transform.Translate(lines[0].displayObject.transform.position,Space.Self);
-            //ca.transform.SetPositionAndRotation(lines[0].displayObject.transform.position, ca.transform.rotation);
-            Vector3 v1 = GEOLocation.TranslateGPoint2Vector3(path.lines[0].points[0]);
-            Vector3 v2 = new Vector3(0 - v1.x, 0 - v1.y, v1.z);
-            Vector3 v3 =new Vector3(v1.x,v1.y, ca.transform.position.z);
-            ca.transform.position = v3;
+            //iTween.MoveTo(ca.gameObject, v3, 6.6f);
+            
+            carData cardata = PathLoader.loadCarData();
+            car = new DisplayCar(go, cardata,new GPoint[0]);
+            prefabToCreate = car.displayObject;
+            //ca.WorldToScreenPoint(GEOLocation.TranslateGPoint2Vector3(car.cdata.antennaB));
 
         }
     }
