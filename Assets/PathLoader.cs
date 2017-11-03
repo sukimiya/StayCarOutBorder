@@ -63,4 +63,28 @@ public class PathLoader: MonoBehaviour
 
         return null;
     }
+    public static RunPath loadPath()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+
+        if (!File.Exists(Application.dataPath + "/Resources/dcpathdata.json"))
+        {
+            return null;
+        }
+
+        StreamReader sr = new StreamReader(Application.dataPath + "/Resources/dcpathdata.json");
+
+        if (sr == null)
+        {
+            return null;
+        }
+        string json = sr.ReadToEnd();
+        Debug.Log(json);
+        if (json.Length > 0)
+        {
+            return JsonUtility.FromJson<RunPath>(json);
+        }
+
+        return null;
+    }
 }

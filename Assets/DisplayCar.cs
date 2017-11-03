@@ -24,7 +24,7 @@ public class DisplayCar {
         _points = cardata.body;
         cdata = cardata;
         Vector3 v1 = GEOLocation.TranslateGPoint2Vector3(cdata.antennaB);
-        displayObject = new GameObject("DisplayLineation_" + numLine.ToString());
+        displayObject = gameObject;
         displayObject.SetActive(true);
         Debug.Log(displayObject.name + ":" + displayObject.transform.position.x + "," + displayObject.transform.position.y);
         numLine++;
