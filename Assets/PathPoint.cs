@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 [System.Serializable]
 public class PathPoint {
@@ -48,6 +49,7 @@ public class PathPoint {
         p.angley = float.Parse(angley);
         p.sat1 = float.Parse(sat1);
         p.sat2 = float.Parse(sat2);
+        p.rotation = new Quaternion(p.anglex * Mathf.Rad2Deg/Mathf.PI, p.angley * Mathf.Rad2Deg / Mathf.PI, p.anglez * Mathf.Rad2Deg / Mathf.PI, 1.0f);
         return p;
     }
 }
@@ -76,4 +78,5 @@ public class PP
     public string r2;
     public string check;
     public GPoint position;
+    public Quaternion rotation;
 }

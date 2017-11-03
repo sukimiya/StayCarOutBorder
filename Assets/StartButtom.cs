@@ -53,7 +53,7 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
                         //car.line.transform.position = m1;
                         //iTween.MoveTo(ca.gameObject, m1, 0.2f);
                         car.line.transform.position = m1;
-                        car.line.transform.rotation = new Quaternion(p.anglex, p.angley, p.anglez, 0);
+                        car.displayObject.transform.rotation = p.rotation;
                         steps++;
                         lastTime = curTime;
                         startTime = getTimestamp(DateTime.Now);
