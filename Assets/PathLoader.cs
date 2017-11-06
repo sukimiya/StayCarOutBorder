@@ -67,12 +67,12 @@ public class PathLoader: MonoBehaviour
     {
         BinaryFormatter bf = new BinaryFormatter();
 
-        if (!File.Exists(Application.dataPath + "/Resources/dcpathdata.json"))
+        if (!File.Exists(Application.dataPath + "/Resources/allpathdata.json"))
         {
             return null;
         }
 
-        StreamReader sr = new StreamReader(Application.dataPath + "/Resources/dcpathdata.json");
+		StreamReader sr = new StreamReader(Application.dataPath + "/Resources/allpathdata.json");
 
         if (sr == null)
         {
