@@ -46,11 +46,10 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
 					if ((curTime - lastTime) == 0 || (curTime - lastTime) <= timed) {
 	                       
 						float duration = curTime - lastTime;
-						Vector3 m1 = GEOLocation.TranslateGPoint2Vector3 (p.position);
 						//car.line.transform.position = m1;
 						//iTween.MoveTo(ca.gameObject, m1, 0.2f);
 
-						car.line.transform.position = m1;
+						car.line.transform.position = p.position;
 						Quaternion q = Quaternion.AngleAxis ((295.27f - p.anglez + 180.0f) % 360.0f, Vector3.forward);
 						car.line.transform.rotation = q;
 						steps++;
@@ -120,7 +119,7 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
         startTime = getTimestamp(DateTime.Now);
         PP first = runpath.path[0].parsePP();
         lastTime = float.Parse(getTimestamp(first).ToString()) / 1000.0f;
-        v2 = GEOLocation.TranslateGPoint2Vector3(first.position);
+        v2 = first.position;
         //iTween.MoveTo(car.displayObject, v2, 0.2f);
 		for (float i = 0; i < 360.0f; i+=1.0f) {
 			Quaternion q = Quaternion.AngleAxis (i, Vector3.forward);

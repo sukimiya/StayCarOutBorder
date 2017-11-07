@@ -30,7 +30,7 @@ public class PathPoint {
     public PP parsePP()
     {
         PP p = new PP();
-        p.position = new GPoint();
+        p.position = new Vector3();
         int fullyear = int.Parse( time.Substring(0, 4));
         int month = int.Parse(time.Substring(4, 2));
         int day = int.Parse(time.Substring(6, 2));
@@ -39,9 +39,10 @@ public class PathPoint {
         int sec = int.Parse(time.Substring(12, 2));
         int msec = int.Parse(time.Substring(15, 2));
         p.time = new DateTime(fullyear,month,day,hour,minute,sec,msec*10);
-        p.position.lng = p.lng = double.Parse(lng);
-        p.position.lat = p.lat = double.Parse(lat);
-        p.position.high = p.high = double.Parse(high);
+        p.lng = double.Parse(lng);
+        p.lat = double.Parse(lat);
+        p.high = double.Parse(high);
+        p.position = GEOLocation.TranslateGPoint2Vector3(new GPoint(p.lng, p.lat, p.high));
         p.anglez = float.Parse(anglez);
         p.anglex = float.Parse(anglex);
         p.speed = float.Parse(speed);
@@ -77,7 +78,7 @@ public class PP
     public string r1;
     public string r2;
     public string check;
-    public GPoint position;
+    public Vector3 position;
     public Quaternion rotation;
     
 }

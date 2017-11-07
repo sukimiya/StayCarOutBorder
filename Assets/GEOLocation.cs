@@ -15,15 +15,18 @@ public class GEOLocation : MonoBehaviour
     public static Vector3 TranslateGPoint2Vector3(GPoint gPoint)
     {
         //return new Vector3(Convent.Tofloat((TO_GLNG(gPoint.lng) - TO_GLNG(center.lng))*scale), Convent.Tofloat(((TO_GLAT(gPoint.lat) - TO_GLAT(center.lat))*scale)));
-        return TranslateGPoint(center,gPoint);
+        Vector3 v1 = TranslateGPoint(center, gPoint);
+        v1.z = float.Parse((gPoint.high).ToString());
+        return v1;
     }
     public static Vector3 TranslateGPoint(GPoint p2,GPoint p1)
     {
         //return new Vector3(Convent.Tofloat((TO_GLNG(p2.lng) - TO_GLNG(p1.lng)) * scale), Convent.Tofloat(((TO_GLAT(p2.lat) - TO_GLAT(p1.lat)) * scale)));
-        double dy = distance(p1.lat, p1.lng, p2.lat, p1.lng);
-        double dx = distance(p1.lat, p1.lng, p1.lat, p2.lng);
-
-        return new Vector3(float.Parse((dx * scale).ToString()), float.Parse((dy * scale).ToString()));
+        double dy = distance(p1.lat, p1.lng, p1.lat, p2.lng);
+        double dx = distance(p1.lat, p1.lng, p2.lat, p1.lng);
+        Vector3 v1 = new Vector3(float.Parse((dx * scale).ToString()), float.Parse((dy * scale).ToString()));
+        v1.z = float.Parse(((p2.high-p1.high)).ToString());
+        return v1;
     }
     // Use this for initialization
     void Start()
@@ -44,12 +47,12 @@ public class GEOLocation : MonoBehaviour
 
     public static Vector3 GPoint2Vector3(GPoint gp)
     {
-        double dy = distance(center.lat, center.lng, gp.lat, center.lng);
-        double dx = distance(center.lat, center.lng, center.lat, gp.lng);
+        double dy = distance(center.lat, center.lng, center.lat, gp.lng);
+        double dx = distance(center.lat, center.lng, gp.lat, center.lng);
 
         return new Vector3(float.Parse((dx * scale).ToString()), float.Parse((dy * scale).ToString()));
     }
-    public static double distance(double lat1, double lon1, double lat2, double lon2)
+    public static double distance(double lat2, double lon2, double lat1, double lon1)
     {
         double theta = lon1 - lon2;
         double dist = Math.Sin(lat1 * Mathf.Deg2Rad) * Math.Sin(lat2 * Mathf.Deg2Rad)
@@ -57,7 +60,7 @@ public class GEOLocation : MonoBehaviour
                     * Math.Cos(theta * Mathf.Deg2Rad);
         dist = Math.Acos(dist);
         dist = dist * Mathf.Rad2Deg;
-        double miles = dist * 60 * 1.1515d;
+        double miles = dist * 60.0d * 1.1515d;
         return miles;
     }
 }

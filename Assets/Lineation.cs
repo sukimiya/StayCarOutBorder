@@ -16,6 +16,12 @@ public class GPoint
     public double lng;
     public double lat;
     public double high;
+    public GPoint(double _lng,double _lat,double _high)
+    {
+        lng = _lng;
+        lat = _lat;
+        high = _high;
+    }
     public GPoint()
     {
         id = -1;
