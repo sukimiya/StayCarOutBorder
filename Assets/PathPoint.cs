@@ -31,14 +31,14 @@ public class PathPoint {
     {
         PP p = new PP();
         p.position = new Vector3();
-        int fullyear = int.Parse( time.Substring(0, 4));
-        int month = int.Parse(time.Substring(4, 2));
-        int day = int.Parse(time.Substring(6, 2));
-        int hour = int.Parse(time.Substring(8, 2));
-        int minute = int.Parse(time.Substring(10, 2));
-        int sec = int.Parse(time.Substring(12, 2));
-        int msec = int.Parse(time.Substring(15, 2));
-        p.time = new DateTime(fullyear,month,day,hour,minute,sec,msec*10);
+        float fullyear = float.Parse( time.Substring(0, 4));
+        float month = float.Parse(time.Substring(4, 2));
+        float day = float.Parse(time.Substring(6, 2));
+        float hour = float.Parse(time.Substring(8, 2));
+        float minute = float.Parse(time.Substring(10, 2));
+        float sec = float.Parse(time.Substring(12, 2));
+        float msec = float.Parse(time.Substring(15, 2));
+        p.time = double.Parse(( msec/100.0f+sec+minute*60.0f+hour*3600.0f).ToString());
         p.lng = double.Parse(lng);
         p.lat = double.Parse(lat);
         p.high = double.Parse(high);
@@ -56,7 +56,7 @@ public class PathPoint {
 }
 public class PP
 {
-    public DateTime time;
+    public double time;
     public double lng;
     public double lat;
     public double high;
@@ -80,5 +80,16 @@ public class PP
     public string check;
     public Vector3 position;
     public Quaternion rotation;
-    
+    public static double F2d(float f)
+    {
+        return double.Parse(f.ToString());
+    }
+    public static float D2f(double d)
+    {
+        return float.Parse(d.ToString());
+    }
+    public static float I2F(int i)
+    {
+        return float.Parse(i.ToString());
+    }
 }

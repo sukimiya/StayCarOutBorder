@@ -14,13 +14,13 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
     public DisplayCar car = null;
     public Camera ca = null;
     public RunPath runpath;
-    public int startTime;
+    public float startTime;
     public float lastTime;
 	bool isPause = false;
     Vector3 v1, v2, v3;
     // Use this for initialization
     void Start () {
-        new GEOLocation(117.25251548f, 31.71685460f);
+        new GEOLocation(117.25251548d, 31.71685460d);
     }
     public int steps = 0;
 	// Update is called once per frame
@@ -41,17 +41,21 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
 					Text txt2 = otext2.GetComponent<Text> ();
 					PP first = runpath.path [0].parsePP ();
 					PP p = runpath.path [steps].parsePP ();
-					float curTime = float.Parse (getTimestamp (p).ToString ()) / 1000.0f;
-					float timed = (getTimestamp (DateTime.Now) - startTime) / 1000.0f;
-					if ((curTime - lastTime) == 0 || (curTime - lastTime) <= timed) {
+                    PP pp = runpath.path[steps-1].parsePP();
+                        float curTime = float.Parse((p.time - pp.time).ToString());
+					float timed = (getTimestamp (DateTime.Now) - startTime);
+					if (timed>= curTime) {
 	                       
 						float duration = curTime - lastTime;
-						//car.line.transform.position = m1;
-						//iTween.MoveTo(ca.gameObject, m1, 0.2f);
+                            //car.line.transform.position = m1;
 
-						car.line.transform.position = p.position;
+                        iTween.MoveTo(ca.gameObject, GetTweenMove( new Vector3( p.position.x,p.position.y,-10), curTime));
+                            iTween.MoveTo(car.displayObject, GetTweenMove(p.position, curTime));
+                            car.line.transform.position = p.position;
 						Quaternion q = Quaternion.AngleAxis ((295.27f - p.anglez + 180.0f) % 360.0f, Vector3.forward);
 						car.line.transform.rotation = q;
+                            iTween.RotateTo(car.displayObject, GetTweenRotation( q.eulerAngles, curTime));
+                        Debug.Log("duration:" + (curTime).ToString()+" time Delta:"+ timed.ToString());
 						steps++;
 						lastTime = curTime;
 						startTime = getTimestamp (DateTime.Now);
@@ -62,13 +66,26 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
 				}
 			}
 	}
-    private int getTimestamp(PP p)
+    Hashtable GetTweenRotation(Vector3 p,float time)
     {
-        return (p.time.Millisecond + p.time.Second * 1000 + p.time.Minute * 600000 + p.time.Hour * 3600000);
+        Hashtable h = new Hashtable();
+        h.Add("time",time);
+        h.Add("rotation", p);
+        h.Add("easetype", iTween.EaseType.linear);
+        return h;
     }
-    private int getTimestamp(DateTime dt)
+    Hashtable GetTweenMove(Vector3 p, float time)
     {
-        return (dt.Millisecond + dt.Second * 1000 + dt.Minute * 600000 + dt.Hour * 3600000);
+        Hashtable h = new Hashtable();
+        h.Add("time", time);
+        h.Add("position", p);
+        h.Add("easetype", iTween.EaseType.linear);
+        return h;
+    }
+
+    private float getTimestamp(DateTime dt)
+    {
+        return float.Parse((dt.Millisecond + dt.Second * 1000 + dt.Minute * 600000 + dt.Hour * 3600000).ToString()) / 1000.0f;
     }
     private void OnGUI()
     {
@@ -88,8 +105,8 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
 		}
 	}
 	void restart(){
-		steps = 0;
-	}
+        steps = 1;
+    }
     void createGame()
     {
 		steps = 0;
@@ -100,7 +117,8 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
         ca = GameObject.Find("Main Camera").GetComponent<Camera>();
         foreach (Lineation gp in path.lines)
         {
-            lines.Add(new DisplayLineation(go, gp.points, gp.type));
+            
+            lines.Add(new DisplayLineation(go, gp.points, gp.type,gp.loop));
             last = gp;
         }
         //iTween.MoveTo(ca.gameObject, v3, 6.6f);
@@ -118,14 +136,8 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
 
         startTime = getTimestamp(DateTime.Now);
         PP first = runpath.path[0].parsePP();
-        lastTime = float.Parse(getTimestamp(first).ToString()) / 1000.0f;
+        lastTime = float.Parse(first.time.ToString());
         v2 = first.position;
-        //iTween.MoveTo(car.displayObject, v2, 0.2f);
-		for (float i = 0; i < 360.0f; i+=1.0f) {
-			Quaternion q = Quaternion.AngleAxis (i, Vector3.forward);
-
-			Debug.Log("["+i.ToString()+"] x:"+q.x.ToString()+" y:"+q.y.ToString()+" z:"+q.z.ToString());
-		}
         steps++;
     }
     public void OnPointerClick(PointerEventData eventData)

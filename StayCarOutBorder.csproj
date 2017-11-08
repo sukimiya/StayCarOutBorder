@@ -236,6 +236,7 @@
     <Compile Include="Assets\GPath.cs" />
     <Compile Include="Assets\Lineation.cs" />
     <Compile Include="Assets\mainUI.cs" />
+    <Compile Include="Assets\MyCamera.cs" />
     <Compile Include="Assets\PathLoader.cs" />
     <Compile Include="Assets\PathPoint.cs" />
     <Compile Include="Assets\PauseBtn.cs" />

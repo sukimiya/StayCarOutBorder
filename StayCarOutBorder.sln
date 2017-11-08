@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StayCarOutBorder.Plugins", "StayCarOutBorder.Plugins.csproj", "{10E36F7B-2733-CFD8-C19E-88E16421174A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StayCarOutBorder", "StayCarOutBorder.csproj", "{5EDB475B-0DD4-1F9E-CD42-F4F25F831E13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StayCarOutBorder.Plugins", "StayCarOutBorder.Plugins.csproj", "{10E36F7B-2733-CFD8-C19E-88E16421174A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EDB475B-0DD4-1F9E-CD42-F4F25F831E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EDB475B-0DD4-1F9E-CD42-F4F25F831E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EDB475B-0DD4-1F9E-CD42-F4F25F831E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EDB475B-0DD4-1F9E-CD42-F4F25F831E13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E36F7B-2733-CFD8-C19E-88E16421174A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
