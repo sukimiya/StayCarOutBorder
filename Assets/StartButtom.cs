@@ -55,7 +55,7 @@ public class StartButtom : MonoBehaviour, IPointerClickHandler{
 						Quaternion q = Quaternion.AngleAxis ((295.27f - p.anglez + 180.0f) % 360.0f, Vector3.forward);
 						car.line.transform.rotation = q;
                             iTween.RotateTo(car.displayObject, GetTweenRotation( q.eulerAngles, curTime));
-                        Debug.Log("duration:" + (curTime).ToString()+" time Delta:"+ timed.ToString());
+                        //Debug.Log("duration:" + (curTime).ToString()+" time Delta:"+ timed.ToString());
 						steps++;
 						lastTime = curTime;
 						startTime = getTimestamp (DateTime.Now);
